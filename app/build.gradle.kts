@@ -1,7 +1,9 @@
+// myScooter/app/build.gradle
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
+    id("com.google.devtools.ksp") // Lascia solo KSP per la generazione del codice di Room
+    id("org.jetbrains.kotlin.plugin.compose")
 }
 
 android {
@@ -11,7 +13,7 @@ android {
     defaultConfig {
         applicationId = "it.adr.myscooter"
         minSdk = 24
-        targetSdk = 34 // Manteniamo il targetSdk a 34 come nel tuo progetto
+        targetSdk = 35 // Allineato a compileSdk per la massima compatibilità
         versionCode = 1
         versionName = "1.0"
 
@@ -41,42 +43,60 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.11"
+        // Aggiornato per compatibilità con Kotlin 2.0.0
+        kotlinCompilerExtensionVersion = "1.5.12"
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-    buildToolsVersion = "35.0.0"
+    // buildToolsVersion non è più necessario specificarlo manualmente con AGP recenti
 }
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.16.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.1")
-    implementation("androidx.activity:activity-compose:1.10.1")
-    implementation(platform("androidx.compose:compose-bom:2025.06.00"))
+    // Versione più recente stabile di KTX
+    implementation("androidx.core:core-ktx:1.13.1")
+    // Versione più recente stabile
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.1")
+    // Versione più recente stabile
+    implementation("androidx.activity:activity-compose:1.9.0")
+    // Usa l'ultima versione STABILE del BOM di Compose (attualmente 2024.06.00)
+    implementation(platform("androidx.compose:compose-bom:2024.06.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    debugImplementation("androidx.compose.ui:ui-tooling")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    // Per icone Material Design Extended (allineata con il BOM se possibile, altrimenti ultima stabile)
+    implementation("androidx.compose.material:material-icons-extended:1.6.3") // Lasciata questa versione che è più comune
 
-    // --- DIPENDENZE ROOM (AGGIUNGI QUI) ---
-    // Room - Core library
-    implementation("androidx.room:room-runtime:2.7.1") // Ultima stabile al 2025.06.07
-    // Room - Kotlin Coroutines support (essenziale per l'uso con Flow e suspend functions)
+    // Room (per il database)
+    // Se la versione 2.7.1 ti dà ancora problemi, potresti provare a scendere alla 2.6.1 che è molto stabile
+    implementation("androidx.room:room-runtime:2.7.1")
+    ksp("androidx.room:room-compiler:2.7.1") // KSP compiler deve corrispondere alla versione di Room
     implementation("androidx.room:room-ktx:2.7.1")
-    // Room - Annotation Processor (per Kotlin, usa kapt)
-    // QUESTA È FONDAMENTALE PERCHÉ ROOM GENERI IL CODICE NECESSARIO
-    kapt("androidx.room:room-compiler:2.7.1")
-    // --- FINE DIPENDENZE ROOM ---
 
+    // Lifecycle ViewModel per Compose (allineata con lifecycle-runtime-ktx)
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.1")
+
+    // Navigation Compose (allineata con la versione più recente stabile)
+    implementation("androidx.navigation:navigation-compose:2.7.7") // L'ultima stabile è 2.7.7, la 2.9.0 è sperimentale
+
+    // Coil (per caricare immagini)
+    implementation("io.coil-kt:coil-compose:2.6.0") // L'ultima stabile è 2.6.0
+
+    // Per PhotosPicker (Activity Result API) - allineata con activity-compose
+    implementation("androidx.activity:activity-ktx:1.9.0")
+
+    // Per Persistent Media (Activity Result Contracts)
+    implementation("androidx.media3:media3-exoplayer:1.7.1")
+
+    // Dipendenze di test
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2025.06.00"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
 }
