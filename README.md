@@ -1,2 +1,0 @@
-# myScooterAnd
-myScooter per Android!
