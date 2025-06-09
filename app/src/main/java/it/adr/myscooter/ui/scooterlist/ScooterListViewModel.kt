@@ -17,7 +17,6 @@ class ScooterListViewModel : ViewModel() {
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
-    // --- CORREZIONE QUI ---
     // Prima dichiara e inizializza _alertMessage
     private val _alertMessage = MutableStateFlow("")
     // Poi dichiara alertMessage usando _alertMessage

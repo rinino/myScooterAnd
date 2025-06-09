@@ -151,10 +151,10 @@ fun ScooterListScreen(
     }
 }
 
-@Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES, name = "Dark Mode Preview")
-@Composable
-fun ScooterListScreenPreview() {
-    MyScooterTheme(darkTheme = true) {
-        ScooterListScreen(navController = rememberNavController(), viewModel = ScooterListViewModel())
-    }
-}
+//@Preview(showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES, name = "Dark Mode Preview")
+//@Composable
+//fun ScooterListScreenPreview() {
+//    MyScooterTheme(darkTheme = true) {
+//        ScooterListScreen(navController = rememberNavController(), viewModel = ScooterListViewModel())
+//    }
+//}
