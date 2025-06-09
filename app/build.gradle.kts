@@ -57,13 +57,13 @@ android {
 dependencies {
 
     // Versione più recente stabile di KTX
-    implementation("androidx.core:core-ktx:1.13.1")
+    implementation("androidx.core:core-ktx:1.16.0")
     // Versione più recente stabile
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.1")
     // Versione più recente stabile
-    implementation("androidx.activity:activity-compose:1.9.0")
+    implementation("androidx.activity:activity-compose:1.10.1")
     // Usa l'ultima versione STABILE del BOM di Compose (attualmente 2024.06.00)
-    implementation(platform("androidx.compose:compose-bom:2024.06.00"))
+    implementation(platform("androidx.compose:compose-bom:2025.06.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
@@ -72,7 +72,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     // Per icone Material Design Extended (allineata con il BOM se possibile, altrimenti ultima stabile)
-    implementation("androidx.compose.material:material-icons-extended:1.6.3") // Lasciata questa versione che è più comune
+    implementation("androidx.compose.material:material-icons-extended:1.7.8") // Lasciata questa versione che è più comune
 
     // Room (per il database)
     // Se la versione 2.7.1 ti dà ancora problemi, potresti provare a scendere alla 2.6.1 che è molto stabile
@@ -81,16 +81,16 @@ dependencies {
     implementation("androidx.room:room-ktx:2.7.1")
 
     // Lifecycle ViewModel per Compose (allineata con lifecycle-runtime-ktx)
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.1")
 
     // Navigation Compose (allineata con la versione più recente stabile)
-    implementation("androidx.navigation:navigation-compose:2.7.7") // L'ultima stabile è 2.7.7, la 2.9.0 è sperimentale
+    implementation("androidx.navigation:navigation-compose:2.9.0") // L'ultima stabile è 2.7.7, la 2.9.0 è sperimentale
 
     // Coil (per caricare immagini)
     implementation("io.coil-kt:coil-compose:2.6.0") // L'ultima stabile è 2.6.0
 
     // Per PhotosPicker (Activity Result API) - allineata con activity-compose
-    implementation("androidx.activity:activity-ktx:1.9.0")
+    implementation("androidx.activity:activity-ktx:1.10.1")
 
     // Per Persistent Media (Activity Result Contracts)
     implementation("androidx.media3:media3-exoplayer:1.7.1")

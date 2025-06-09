@@ -1,23 +1,18 @@
 package it.adr.myscooter.data.model
 
-import androidx.room.ColumnInfo
+import android.net.Uri // Importa Uri
 import androidx.room.Entity
-import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(
-    tableName = "scooters",
-    indices = [Index(value = ["targa"], unique = true)]
-)
+@Entity(tableName = "scooters")
 data class Scooter(
     @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
-
+    val id: Int = 0,
     val marca: String,
     val modello: String,
     val cilindrata: Int,
-    val anno: Int,
     val targa: String,
+    val anno: Int,
     val miscelatore: Boolean,
-    val imgName: String?
+    val imgName: String? // Cambiato da Int? a String? per l'URI dell'immagine
 )
