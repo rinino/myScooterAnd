@@ -1,22 +1,22 @@
+// it.adr.myscooter/MyScooterApplication.kt
 package it.adr.myscooter
 
 import android.app.Application
-import it.adr.myscooter.data.AppDatabase
-import it.adr.myscooter.data.repository.ScooterRepository
+import it.adr.myscooter.data.local.ScooterDatabase // Assicurati che il percorso sia corretto
+import it.adr.myscooter.data.repository.ScooterRepository // Assicurati che il percorso sia corretto
 
 class MyScooterApplication : Application() {
 
-    // ** Modifica qui: Rendi l'istanza accessibile staticamente **
-    companion object {
-        lateinit var instance: MyScooterApplication
-            private set // Impedisce l'assegnazione esterna, solo all'interno di questa classe
-    }
+    // Dichiarazione lateinit: significa che questa variabile sarà inizializzata più tardi,
+    // specificamente nel metodo onCreate.
+    // Sarà il tuo contenitore di dipendenze per l'intera app.
+    lateinit var scooterRepository: ScooterRepository
 
     override fun onCreate() {
         super.onCreate()
-        instance = this // Assegna l'istanza corrente quando l'applicazione viene creata
+        // Inizializza il database Room
+        val database = ScooterDatabase.getDatabase(this)
+        // Inizializza il repository passandogli il DAO dal database
+        scooterRepository = ScooterRepository(database.scooterDao())
     }
-
-    val database: AppDatabase by lazy { AppDatabase.getDatabase(this) }
-    val repository: ScooterRepository by lazy { ScooterRepository(database.scooterDao()) }
 }
